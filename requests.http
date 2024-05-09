@@ -1,0 +1,98 @@
+# примеры API-запросов
+
+@baseUrl = http://localhost:8000/api
+@token1 = 0800ce8cbd2697c92ab972ed1d2959d74782a2eb
+@token2 = 90f62d96975f780d13ff0edc2a3a484c0eb1e640
+@token3 = 6a08a781ed08c88b2a0083caa50896f19aa33c07
+
+# получение объявлений без аутентификации
+GET {{baseUrl}}/advertisements/
+Content-Type: application/json
+
+###
+
+# получение объявлений с аутентификацией
+GET {{baseUrl}}/advertisements/
+Content-Type: application/json
+Authorization: Token {{token3}}
+
+###
+
+# создание объявления 
+POST {{baseUrl}}/advertisements/
+Content-Type: application/json
+Authorization: Token {{token1}}
+
+{
+  "title": "Коляска",
+  "description": "Детская"
+}
+
+###
+
+# создание объявления 
+POST {{baseUrl}}/advertisements/
+Content-Type: application/json
+Authorization: Token {{token2}}
+
+{
+  "title": "Манчкин",
+  "description": "Досуг",
+  "status": "OPEN"
+}
+
+###
+
+# Удаление объявления
+DELETE  {{baseUrl}}/advertisements/34/
+Content-Type: application/json
+Authorization: Token {{token3}}
+
+###
+
+# попытка поменять объявление
+PATCH {{baseUrl}}/advertisements/32/
+Content-Type: application/json
+Authorization: Token {{token3}}
+
+{
+  "status": "DRAFT"
+}
+
+###
+
+# фильтрация по создателю
+GET {{baseUrl}}/advertisements/?creator=2
+Content-Type: application/json
+Authorization: Token {{token3}}
+
+###
+
+# фильтрация по дате
+GET {{baseUrl}}/advertisements/?created_at_before=2024-05-08&creator=3
+Content-Type: application/json
+Authorization: Token {{token3}}
+
+###
+
+# фильтрация по статусу
+GET {{baseUrl}}/advertisements/?status=CLOSED&creator=3
+Content-Type: application/json
+Authorization: Token {{token3}}
+
+###
+# добавление объявления в список избранного
+POST {{baseUrl}}/advertisements/36/mark_as_favorite/
+Content-Type: application/json
+Authorization: Token {{token3}}
+
+###
+
+# получение объявлений из списка избранного
+GET {{baseUrl}}/advertisements/favorite_advertisements
+Content-Type: application/json
+Authorization: Token {{token3}}
+
+###
+
+
